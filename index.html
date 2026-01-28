@@ -255,6 +255,87 @@ textarea{resize:vertical}
 
 <!-- OWNER DASHBOARD -->
 <section class="dashboard" id="ownerDash">
+  <h2>Owner Dashboard – Full Access</h2>
+  <p class="muted">You have unrestricted access to all site features and tools.</p>
+
+  <!-- STATS -->
+  <div class="grid grid-3">
+    <div class="card">Total Revenue<br><span class="stat">$12,480</span></div>
+    <div class="card">Active Affiliates<br><span class="stat">42</span></div>
+    <div class="card">Conversion Rate<br><span class="stat">3.8%</span></div>
+  </div>
+
+  <!-- PLAN PREVIEW -->
+  <div class="card">
+    <h3>Preview Site as Customer Plan</h3>
+    <button onclick="setPlan('starter')">Starter</button>
+    <button onclick="setPlan('pro')">Pro</button>
+    <button onclick="setPlan('agency')">Agency</button>
+    <button onclick="setPlan('owner')">Owner (All)</button>
+    <p id="planStatus" class="muted">Current View: Owner – All Features Enabled</p>
+  </div>
+
+  <!-- FEATURE ACCESS -->
+  <div class="card">
+    <h3>Live Feature Access (Owner)</h3>
+    <div class="grid grid-3">
+      <button onclick="alert('Templates Library Opened')">Templates Library</button>
+      <button onclick="alert('Live Demo Viewer Opened')">Live Demo Viewer</button>
+      <button onclick="alert('AI Assistant Activated')">AI Assistant</button>
+      <button onclick="alert('Affiliate Manager Opened')">Affiliate Manager</button>
+      <button onclick="alert('Analytics Dashboard Loaded')">Site Analytics</button>
+      <button onclick="alert('CMS / Demo System Loaded')">CMS / Demo System</button>
+    </div>
+  </div>
+
+  <!-- FEATURE / PLAN MATRIX -->
+  <div class="card">
+    <h3>Feature Availability by Plan</h3>
+    <table style="width:100%;border-collapse:collapse;text-align:center">
+      <tr style="border-bottom:1px solid #333">
+        <th style="text-align:left">Feature</th>
+        <th>Starter</th>
+        <th>Pro</th>
+        <th>Agency</th>
+      </tr>
+      <tr>
+        <td>Templates Library</td>
+        <td>✔</td><td>✔</td><td>✔</td>
+      </tr>
+      <tr>
+        <td>Live Demos</td>
+        <td>✔</td><td>✔</td><td>✔</td>
+      </tr>
+      <tr>
+        <td>AI-Ready Components</td>
+        <td>—</td><td>✔</td><td>✔</td>
+      </tr>
+      <tr>
+        <td>Custom Setup</td>
+        <td>—</td><td>✔</td><td>✔</td>
+      </tr>
+      <tr>
+        <td>Affiliate Program</td>
+        <td>—</td><td>—</td><td>✔</td>
+      </tr>
+      <tr>
+        <td>Resale / White-Label</td>
+        <td>—</td><td>—</td><td>✔</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- OWNER NOTES / TASKS -->
+  <div class="card">
+    <h3>Owner Tasks & Notes</h3>
+    <textarea placeholder="• Launch campaign
+• Review affiliates
+• Update demos"></textarea>
+    <button style="margin-top:10px">Save Notes</button>
+  </div>
+</section>
+
+
   <h2>Owner Dashboard</h2>
   <div class="grid grid-3">
     <div class="card">Revenue<br><span class="stat">$12,480</span></div>
@@ -304,7 +385,22 @@ function login(){
 function scrollToSection(id){
   document.getElementById(id).scrollIntoView({behavior:'smooth'});
 }
+</script><script>
+let currentPlan = 'owner';
+
+function setPlan(plan){
+  currentPlan = plan;
+  const label = {
+    starter: 'Starter – Limited Features',
+    pro: 'Pro – Advanced Features',
+    agency: 'Agency – Full Commercial Access',
+    owner: 'Owner – All Features Enabled'
+  };
+  document.getElementById('planStatus').innerText =
+    'Current View: ' + label[plan];
+}
 </script>
+
 
 </body>
 </html>
