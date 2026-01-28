@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TechForge – Build Smarter, Launch Faster</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --card:#12182b;
+  --accent:#5ef3ff;
+  --accent2:#8b5cff;
+  --text:#ffffff;
+  --muted:#aab0d6;
+}
+body.light{
+  --bg:#f5f6fb;
+  --card:#ffffff;
+  --text:#0b0f1a;
+  --muted:#555;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui;
+  background:var(--bg);
+  color:var(--text);
+  transition:.3s;
+}
+a{color:var(--accent);text-decoration:none}
+button{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;
+  border:none;
+  padding:12px 20px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+}
+section{padding:80px 8%}
+.card{
+  background:var(--card);
+  border-radius:14px;
+  padding:25px;
+}
+.grid{
+  display:grid;
+  gap:25px;
+}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.center{text-align:center}
+
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  z-index:999;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 8%;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(10px);
+}
+nav strong{font-size:1.3em}
+nav div button{margin-left:10px}
+
+/* HERO */
+.hero{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:40px;
+}
+.hero h1{font-size:3em}
+.badge{
+  display:inline-block;
+  background:rgba(94,243,255,.15);
+  padding:6px 14px;
+  border-radius:20px;
+  margin-top:20px;
+  color:var(--accent);
+}
+
+/* DEMOS */
+.demo img{
+  width:100%;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  justify-content:center;
+  align-items:center;
+}
+.modal-content{
+  background:var(--card);
+  padding:30px;
+  border-radius:16px;
+  width:90%;
+  max-width:500px;
+}
+input,textarea{
+  width:100%;
+  padding:10px;
+  border-radius:6px;
+  border:none;
+  margin:8px 0;
+}
+textarea{resize:vertical}
+
+/* DASHBOARD */
+.dashboard{
+  display:none;
+}
+.stat{
+  font-size:1.8em;
+  font-weight:800;
+}
+
+/* CHAT */
+.chat{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <strong>TechForge</strong>
+  <div>
+    <button onclick="toggleMode()">🌗</button>
+    <button onclick="openLogin()">Login</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>Build Smarter, Launch Faster</h1>
+    <p class="muted">Premium website templates and demos built for tech startups</p>
+    <button onclick="scrollToSection('pricing')">Explore Templates</button>
+    <div class="badge">Trusted by 1,000+ startups</div>
+  </div>
+  <div class="card center">
+    <h3>Live Tech Demo Showcase</h3>
+    <p>High-converting SaaS, AI & startup sites</p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section>
+  <h2 class="center">Why TechForge</h2>
+  <div class="grid grid-4">
+    <div class="card">⚡ Fast Setup</div>
+    <div class="card">📐 Scalable Design</div>
+    <div class="card">📱 Responsive Layouts</div>
+    <div class="card">🤖 AI-Ready Templates</div>
+  </div>
+</section>
+
+<!-- DEMOS -->
+<section>
+  <h2 class="center">Live Demos</h2>
+  <div class="grid grid-3">
+    <div class="card demo"><img src="https://placehold.co/600x400/0b0f1a/5ef3ff?text=SaaS+Landing"><strong>SaaS Landing</strong></div>
+    <div class="card demo"><img src="https://placehold.co/600x400/0b0f1a/8b5cff?text=AI+Startup"><strong>AI Startup</strong></div>
+    <div class="card demo"><img src="https://placehold.co/600x400/0b0f1a/5ef3ff?text=App+Launch"><strong>App Launch</strong></div>
+    <div class="card demo"><img src="https://placehold.co/600x400/0b0f1a/8b5cff?text=Portfolio"><strong>Portfolio</strong></div>
+    <div class="card demo"><img src="https://placehold.co/600x400/0b0f1a/5ef3ff?text=Product+Page"><strong>Product Page</strong></div>
+    <div class="card demo"><img src="https://placehold.co/600x400/0b0f1a/8b5cff?text=Agency"><strong>Agency</strong></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <h2 class="center">Pricing</h2>
+  <div class="grid grid-3">
+    <div class="card center">
+      <h3>Starter</h3>
+      <p>$49</p>
+      <p>Templates + demos</p>
+      <button>ADD STRIPE LINK</button>
+    </div>
+    <div class="card center">
+      <h3>Pro</h3>
+      <p>$149</p>
+      <p>All templates + setup</p>
+      <button>ADD STRIPE LINK</button>
+    </div>
+    <div class="card center">
+      <h3>Agency</h3>
+      <p>$399</p>
+      <p>Unlimited + resale</p>
+      <button>ADD STRIPE LINK</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <h2 class="center">Loved by Builders</h2>
+  <div class="grid grid-3">
+    <div class="card">“We launched in days.” – Alex</div>
+    <div class="card">“Insane conversion boost.” – Maya</div>
+    <div class="card">“Perfect for agencies.” – Jordan</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="center">
+  <h2>About TechForge</h2>
+  <p>We help startups launch their online presence in days, not months.</p>
+</section>
+
+<!-- FOOTER -->
+<section class="card center">
+  <h3>Join Our Newsletter</h3>
+  <input placeholder="Email">
+  <button>Subscribe</button>
+  <p>© 2026 TechForge</p>
+</section>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h3>Login</h3>
+    <input id="email" placeholder="Email">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="closeLogin()">Close</button>
+  </div>
+</div>
+
+<!-- OWNER DASHBOARD -->
+<section class="dashboard" id="ownerDash">
+  <h2>Owner Dashboard</h2>
+  <div class="grid grid-3">
+    <div class="card">Revenue<br><span class="stat">$12,480</span></div>
+    <div class="card">Affiliates<br><span class="stat">42</span></div>
+    <div class="card">Conversions<br><span class="stat">3.8%</span></div>
+  </div>
+  <div class="card">
+    <h3>Notes / Tasks</h3>
+    <textarea placeholder="Write notes or tasks here"></textarea>
+  </div>
+</section>
+
+<!-- AFFILIATE DASH -->
+<section class="dashboard" id="affiliateDash">
+  <h2>Affiliate Dashboard</h2>
+  <div class="grid grid-3">
+    <div class="card">Clicks<br><span class="stat">238</span></div>
+    <div class="card">Sales<br><span class="stat">14</span></div>
+    <div class="card">Earnings<br><span class="stat">$420</span></div>
+  </div>
+  <div class="card">
+    <strong>Your Link:</strong>
+    <input value="https://techforge.com/?ref=yourname">
+  </div>
+</section>
+
+<!-- CHAT -->
+<div class="chat" onclick="alert('AI Assistant coming soon 🚀')">💬</div>
+
+<script>
+function toggleMode(){
+  document.body.classList.toggle('light');
+}
+function openLogin(){
+  document.getElementById('loginModal').style.display='flex';
+}
+function closeLogin(){
+  document.getElementById('loginModal').style.display='none';
+}
+function login(){
+  const e=document.getElementById('email').value;
+  const p=document.getElementById('pass').value;
+  closeLogin();
+  if(e==='owner@techforge.com'){document.getElementById('ownerDash').style.display='block';window.scrollTo(0,0);}
+  if(e==='affiliate@techforge.com'){document.getElementById('affiliateDash').style.display='block';window.scrollTo(0,0);}
+}
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
