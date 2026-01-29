@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TechForge – Digital Studio Plus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#0b0f1a;
+ --card:#12182b;
+ --accent:#5ef3ff;
+ --accent2:#8b5cff;
+ --text:#fff;
+}
+body{margin:0;font-family:Inter;background:var(--bg);color:var(--text)}
+section{padding:70px 8%}
+.card{background:var(--card);padding:25px;border-radius:12px;margin:15px 0}
+button{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer}
+nav{display:flex;justify-content:space-between;padding:20px 8%;background:#000;position:sticky;top:0}
+.grid{display:grid;gap:20px}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.center{text-align:center}
+.locked{opacity:.4;pointer-events:none}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);justify-content:center;align-items:center}
+.modal-box{background:#12182b;padding:30px;border-radius:10px;width:90%;max-width:400px}
+input,textarea{width:100%;padding:10px;border-radius:6px;border:none;margin:8px 0}
+.dashboard{display:none}
+.stat{font-size:1.8em;font-weight:800}
+</style>
+</head>
+
+<body>
+
+<nav>
+<strong>TechForge</strong>
+<button onclick="openLogin()">Login</button>
+</nav>
+
+<!-- PUBLIC SITE -->
+<div id="publicSite">
+
+<section class="center">
+<h1>Build Smarter, Launch Faster</h1>
+<p>Premium website templates for tech startups</p>
+<button onclick="scrollToPricing()">Explore Templates</button>
+<div class="card">Trusted by 1,000+ startups</div>
+</section>
+
+<section>
+<h2 class="center">Templates</h2>
+<div class="grid grid-3">
+<div class="card" id="template1">
+<h3>SaaS Landing</h3>
+<button onclick="downloadTemplate('starter')">Download</button>
+</div>
+<div class="card" id="template2">
+<h3>AI Startup</h3>
+<button onclick="downloadTemplate('pro')">Download</button>
+</div>
+<div class="card" id="template3">
+<h3>Agency Suite</h3>
+<button onclick="downloadTemplate('agency')">Download</button>
+</div>
+</div>
+</section>
+
+<section id="pricing">
+<h2 class="center">Pricing</h2>
+<div class="grid grid-3">
+<div class="card center">
+<h3>Starter</h3>
+<p>$49</p>
+<a href="?plan=starter"><button>Buy Starter</button></a>
+</div>
+<div class="card center">
+<h3>Pro</h3>
+<p>$149</p>
+<a href="?plan=pro"><button>Buy Pro</button></a>
+</div>
+<div class="card center">
+<h3>Agency</h3>
+<p>$399</p>
+<a href="?plan=agency"><button>Buy Agency</button></a>
+</div>
+</div>
+</section>
+
+</div>
+
+<!-- OWNER DASH -->
+<section id="ownerDash" class="dashboard">
+<h2>Owner Dashboard</h2>
+<div class="grid grid-3">
+<div class="card">Revenue<br><span class="stat" id="revenue">$0</span></div>
+<div class="card">Affiliates<br><span class="stat" id="affiliates">0</span></div>
+<div class="card">Clicks<br><span class="stat" id="clicks">0</span></div>
+</div>
+<textarea placeholder="Owner Notes"></textarea>
+<button onclick="logout()">Logout</button>
+</section>
+
+<!-- AFFILIATE DASH -->
+<section id="affiliateDash" class="dashboard">
+<h2>Affiliate Dashboard</h2>
+<div class="grid grid-3">
+<div class="card">Clicks<br><span class="stat" id="affClicks">0</span></div>
+<div class="card">Sales<br><span class="stat" id="affSales">0</span></div>
+<div class="card">Earnings<br><span class="stat" id="affEarn">$0</span></div>
+</div>
+<button onclick="logout()">Logout</button>
+</section>
+
+<!-- LOGIN -->
+<div class="modal" id="loginModal">
+<div class="modal-box">
+<h3>Login</h3>
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<button onclick="closeLogin()">Close</button>
+</div>
+</div>
+
+<script>
+let userPlan = localStorage.getItem("plan") || "free";
+
+/* PLAN AUTO-ACTIVATION */
+const params = new URLSearchParams(window.location.search);
+if(params.get("plan")){
+ userPlan = params.get("plan");
+ localStorage.setItem("plan",userPlan);
+ alert("Plan Activated: " + userPlan.toUpperCase());
+}
+
+/* FEATURE LOCKING */
+function downloadTemplate(requiredPlan){
+ const plans=["free","starter","pro","agency","owner"];
+ if(plans.indexOf(userPlan) < plans.indexOf(requiredPlan)){
+  alert("Upgrade required");
+  return;
+ }
+ const blob=new Blob(["Template content"],{type:"text/plain"});
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="template.txt";
+ a.click();
+}
+
+/* LOGIN */
+function openLogin(){document.getElementById("loginModal").style.display="flex";}
+function closeLogin(){document.getElementById("loginModal").style.display="none";}
+function login(){
+ const e=email.value,p=pass.value;
+ closeLogin();
+ document.getElementById("publicSite").style.display="none";
+ ownerDash.style.display="none";
+ affiliateDash.style.display="none";
+ if(e==="owner@techforge.com"){userPlan="owner";localStorage.setItem("plan","owner");ownerDash.style.display="block";}
+ else if(e==="affiliate@techforge.com"){affiliateDash.style.display="block";}
+ else{alert("Invalid");publicSite.style.display="block";}
+}
+function logout(){
+ publicSite.style.display="block";
+ ownerDash.style.display="none";
+ affiliateDash.style.display="none";
+}
+function scrollToPricing(){pricing.scrollIntoView({behavior:"smooth"});}
+</script>
+
+</body>
+</html>
