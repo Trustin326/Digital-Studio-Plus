@@ -1,0 +1,11 @@
+{
+  "name": "techforge-digital-studio-plus",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "jszip": "^3.10.1",
+    "resend": "^4.0.0",
+    "stripe": "^16.12.0"
+  }
+}
