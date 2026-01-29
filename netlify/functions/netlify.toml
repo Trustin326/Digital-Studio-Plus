@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Stripe webhooks require raw body in Netlify functions:
+[[headers]]
+  for = "/.netlify/functions/stripe-webhook"
+  [headers.values]
+    content-type = "application/json"
