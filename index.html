@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TechForge – Digital Studio Plus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --card:#12182b;
+  --accent:#5ef3ff;
+  --accent2:#8b5cff;
+  --text:#fff;
+}
+body{
+  margin:0;
+  font-family:Inter;
+  background:var(--bg);
+  color:var(--text);
+}
+section{padding:70px 8%}
+.card{background:var(--card);padding:25px;border-radius:12px;margin:15px 0}
+button{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;
+  padding:12px 20px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+}
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 8%;
+  background:#000;
+  position:sticky;
+  top:0;
+}
+.grid{
+  display:grid;
+  gap:20px;
+}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.center{text-align:center}
+
+/* LOGIN MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  justify-content:center;
+  align-items:center;
+}
+.modal-box{
+  background:#12182b;
+  padding:30px;
+  border-radius:10px;
+  width:90%;
+  max-width:400px;
+}
+input,textarea{
+  width:100%;
+  padding:10px;
+  border-radius:6px;
+  border:none;
+  margin:8px 0;
+}
+
+/* DASHBOARDS */
+.dashboard{
+  display:none;
+}
+.stat{font-size:1.8em;font-weight:800}
+</style>
+</head>
+
+<body>
+
+<nav>
+<strong>TechForge</strong>
+<button onclick="openLogin()">Login</button>
+</nav>
+
+<!-- PUBLIC SITE -->
+<div id="publicSite">
+
+<section class="center">
+<h1>Build Smarter, Launch Faster</h1>
+<p>Premium website templates and demos built for tech startups</p>
+<button onclick="scrollToPricing()">Explore Templates</button>
+<div class="card">Trusted by 1,000+ startups</div>
+</section>
+
+<section>
+<h2 class="center">Features</h2>
+<div class="grid grid-3">
+<div class="card">⚡ Fast Setup</div>
+<div class="card">📱 Responsive Layouts</div>
+<div class="card">🤖 AI-Ready Templates</div>
+</div>
+</section>
+
+<section id="pricing">
+<h2 class="center">Pricing</h2>
+<div class="grid grid-3">
+<div class="card center">
+<h3>Starter</h3>
+<p>$49</p>
+<button>ADD STRIPE LINK</button>
+</div>
+<div class="card center">
+<h3>Pro</h3>
+<p>$149</p>
+<button>ADD STRIPE LINK</button>
+</div>
+<div class="card center">
+<h3>Agency</h3>
+<p>$399</p>
+<button>ADD STRIPE LINK</button>
+</div>
+</div>
+</section>
+
+<section class="center">
+<h3>About TechForge</h3>
+<p>We help startups launch their online presence in days, not months.</p>
+</section>
+
+</div>
+
+<!-- OWNER DASHBOARD -->
+<section id="ownerDash" class="dashboard">
+<h2>Owner Dashboard — Full Access</h2>
+
+<div class="grid grid-3">
+<div class="card">Revenue<br><span class="stat">$12,480</span></div>
+<div class="card">Affiliates<br><span class="stat">42</span></div>
+<div class="card">Conversions<br><span class="stat">3.8%</span></div>
+</div>
+
+<div class="card">
+<h3>Plan Access Overview</h3>
+<p>Owner has access to ALL features across all plans.</p>
+<ul>
+<li>✔ Templates Library</li>
+<li>✔ Live Demos</li>
+<li>✔ AI Tools</li>
+<li>✔ Affiliate System</li>
+<li>✔ CMS Access</li>
+<li>✔ Resale Rights</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Owner Tasks / Notes</h3>
+<textarea placeholder="Write tasks or notes"></textarea>
+</div>
+
+<button onclick="logout()">Logout</button>
+</section>
+
+<!-- AFFILIATE DASHBOARD -->
+<section id="affiliateDash" class="dashboard">
+<h2>Affiliate Dashboard</h2>
+
+<div class="grid grid-3">
+<div class="card">Clicks<br><span class="stat">238</span></div>
+<div class="card">Sales<br><span class="stat">14</span></div>
+<div class="card">Earnings<br><span class="stat">$420</span></div>
+</div>
+
+<div class="card">
+<strong>Your Link:</strong>
+<input value="https://techforge.com/?ref=yourname">
+</div>
+
+<button onclick="logout()">Logout</button>
+</section>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+<div class="modal-box">
+<h3>Login</h3>
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<button onclick="closeLogin()">Close</button>
+</div>
+</div>
+
+<script>
+function openLogin(){
+ document.getElementById("loginModal").style.display="flex";
+}
+function closeLogin(){
+ document.getElementById("loginModal").style.display="none";
+}
+function login(){
+ const e=document.getElementById("email").value;
+ const p=document.getElementById("pass").value;
+
+ closeLogin();
+
+ document.getElementById("publicSite").style.display="none";
+ document.getElementById("ownerDash").style.display="none";
+ document.getElementById("affiliateDash").style.display="none";
+
+ if(e==="owner@techforge.com" && p==="owner123"){
+   document.getElementById("ownerDash").style.display="block";
+   return;
+ }
+ if(e==="affiliate@techforge.com" && p==="affiliate123"){
+   document.getElementById("affiliateDash").style.display="block";
+   return;
+ }
+
+ alert("Invalid login");
+ document.getElementById("publicSite").style.display="block";
+}
+
+function logout(){
+ document.getElementById("publicSite").style.display="block";
+ document.getElementById("ownerDash").style.display="none";
+ document.getElementById("affiliateDash").style.display="none";
+}
+
+function scrollToPricing(){
+ document.getElementById("pricing").scrollIntoView({behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
